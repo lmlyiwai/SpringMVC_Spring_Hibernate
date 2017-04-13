@@ -24,13 +24,16 @@
             var start = $("#1").val()
             var end = $("#2").val()
             if (end == ""){
-                var stime = start.split("-")
-                var s = new Date(stime[0],stime[1],stime[2])
-                if (s >= new Date().getTime()){
-                    alert("start time is future")
-                    return false
-                } else {
+                if(stime == ""){
                     $("form").submit()
+                } else {
+                    var s = new Date(stime[0],stime[1],stime[2])
+                    if (s >= new Date().getTime()){
+                        alert("start time is future")
+                        return false
+                    } else {
+                        $("form").submit()
+                    }
                 }
             }
             if( start != ""){
