@@ -30,11 +30,10 @@
 		<param-value>classpath:/resources/beans.xml</param-value>
 	</context-param>
 
-	<!-- Bootstraps the root web application context before servlet initialization -->
+	 <!--Bootstraps the root web application context before servlet initialization-->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
 	<!-- springmvc配置dispatcherServlet -->
 	
  	<!-- The front controller of this Spring Web application, responsible for handling all application requests -->

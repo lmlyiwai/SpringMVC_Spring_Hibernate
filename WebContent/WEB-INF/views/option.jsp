@@ -46,13 +46,35 @@
                 }
             }
         })
-    });
+        $("#5").click(function() {
+            var date = $("#4").val()
+            console.log(date)
+            $.ajax({
+                type: 'POST',
+                url: "/test/commit",
+                data: date,
+                dataType:"json",
+                success: function (data) {
+                    console.log("data :" + data)
+                    $("#6").html(data)
+                }
+            })
+        })
+        $("#6").click(function(){
+            $("#6").hide()
+        })
+    })
 </script>
 <form action="/test/hchart">
     Start Date:<input type="date" name="startDate" id="1" />
     End Date:<input type="date" name="endDate" id="2" />
     <input type="submit" value="select time" id="3">
 </form>
+<form>
+    date:<input type="date" name="commit" id="4">
+    <button type="button" id="5">commit</button>
+</form>
+<div id="6"></div>
 </div>
 </body>
 </html>

@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -19,13 +22,17 @@ public class HChartController {
     public final static int num = 10;
     @Autowired
     public HChartService hChartService;
-
     @RequestMapping(value = "/option")
     public ModelAndView form() throws Exception{
         ModelAndView mav = new ModelAndView("option");
         return mav;
     }
-
+    //HttpServletRequest
+    @RequestMapping(value = "/commit",method = RequestMethod.POST)
+    public  @ResponseBody  User  commit(@RequestBody String date){
+        System.out.println("receive -------------"  + date + "--------------" );
+        return new User(date);
+    }
     @RequestMapping(value = "/hchart")
     public ModelAndView display(String startDate,String endDate) throws Exception {
         System.out.println("now date:" + new Date());
@@ -80,3 +87,5 @@ public class HChartController {
         }
     }
 }
+
+
