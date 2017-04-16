@@ -19,7 +19,10 @@ public class HChartService {
     public AppGitdbDAO appGitdbDAO;
     @Autowired
     public AppThrputdbDAO appThrputdbDAO;
-
+    public  Map<String,Object> getGitInfo(String date){
+        List<String> list = appThrputdbDAO.getCommitByDate(date);
+        return  appGitdbDAO.getGitByCommit(list);
+    }
     public List<Map<String, Object>> getResult(String startDate,String endDate) {
         List<Map<String, Object>> res = appThrputdbDAO.getResultByDate(startDate,endDate);
         return res;
