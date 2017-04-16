@@ -5,6 +5,26 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#5").click(function() {
+                var date = $("#4").val()
+                console.log(date)
+                $.ajax({
+                    type: 'POST',
+                    url: "/test/commit",
+                    data: date,
+                    success: function (data) {
+                        console.log("data :" + data)
+                        $("#6").html(data)
+                    }
+                })
+            })
+            $("#6").click(function(){
+                $("#6").hide()
+            })
+        })
+    </script>
     <!-- <script src="https://img.hcharts.cn/highchart/modules/exporting.js"></script> -->
     <title></title>
 </head>
@@ -12,7 +32,10 @@
 <body>
     <form action="/test/option">
         <input type="submit" value="back">
+        date:<input type="date" name="commit" id="4">
+        <button type="button" id="5">commit</button>
     </form>
+    <div id="6"></div>
     <div id="container0" style="min-height: 300px;height: 300px"></div>
     <div id="container1" style="min-height: 300px;height: 300px"></div>
     <div id="container2" style="min-height: 300px;height: 300px"></div>

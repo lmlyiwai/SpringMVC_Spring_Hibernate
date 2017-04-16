@@ -29,18 +29,26 @@ public class HChartController {
     }
     //HttpServletRequest
     @RequestMapping(value = "/commit",method = RequestMethod.POST)
-    public  @ResponseBody  User  commit(@RequestBody String date){
-        System.out.println("receive -------------"  + date + "--------------" );
-        return new User(date);
+    public  @ResponseBody  String  commit(@RequestBody String date){
+        if(date == ""){
+            return new String("this day no report!");
+        }
+        date = date.substring(0,date.length() - 1);
+        Map<String ,Object> map = hChartService.getGitInfo(date);
+        String str = "";
+        if (map.size() == 0){
+            return new String("this day no report!");
+        } else {
+            for (Map.Entry<String, Object> entry : map.entrySet()){
+                str += entry.getKey() + ":" + entry.getValue() + "<br/>";
+            }
+            return str;
+        }
     }
     @RequestMapping(value = "/hchart")
     public ModelAndView display(String startDate,String endDate) throws Exception {
-        System.out.println("now date:" + new Date());
-        System.out.println("now date:" + endDate);
         endDate = endDate==""?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):endDate;
         startDate = startDate==""?endDate:startDate;
-        System.out.println("start ------------------" + startDate);
-        System.out.println("end ------------------" + endDate);
         ModelAndView mav = new ModelAndView("hchart");
         List<Map<String,Object>> list = hChartService.getResult(startDate,endDate);
         System.out.println("size ------------------" + list.size());

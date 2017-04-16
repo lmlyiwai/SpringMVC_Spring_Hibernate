@@ -24,11 +24,20 @@ public class AppThrputdbDAO {
     private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
-
+    public List<String> getCommitByDate(String date){
+        List<String> rst ;
+        String sql = "SELECT commit_id FROM app_thrputdb WHERE mydate='" + date + "'";
+        try{
+            rst = jdbcTemplate.queryForList(sql,String.class);
+            return  rst;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public List<Map<String, Object>> getResultByDate(String startDate,String endDate) {
         List<Map<String, Object>> res;
         String sql = "SELECT * FROM app_thrputdb WHERE mydate>='" + startDate + "' AND  mydate<='" + endDate + "' ORDER BY mydate  ";
-        System.out.println("sql -----------------" + sql);
         try {
             res = jdbcTemplate.queryForList(sql);
             return  res;
